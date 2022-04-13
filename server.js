@@ -10,6 +10,8 @@ const port = 3000
 const app = next({ dev, hostname, port })
 const handle = app.getRequestHandler()
 
+require('./lib/Database');
+
 app.prepare().then(() => {
     createServer(async (req, res) => {
         try {
@@ -19,7 +21,7 @@ app.prepare().then(() => {
             const { pathname, query } = parsedUrl;
 
             await handle(req, res, parsedUrl);
-            
+
         } catch (err) {
             console.error('Error occurred handling', req.url, err)
             res.statusCode = 500
