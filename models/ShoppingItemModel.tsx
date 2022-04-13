@@ -1,9 +1,11 @@
-import { Model } from 'objection';
+import { Model, ModelObject } from 'objection';
 
-class ShoppingItemModel extends Model {
-    static get tableName() {
-        return 'shopping_items';
-    }
+export default class ShoppingItemModel extends Model {
+    static tableName = 'shopping_items';
+
+    name!: string;
+    amount!: number;
+    listId!: number;
 }
 
-export default ShoppingItemModel;
+//type UserShape = ModelObject<UserModel>;
