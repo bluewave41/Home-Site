@@ -6,12 +6,16 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
 import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
+import Drawer from 'components/Drawer';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
 export default function MyApp(props) {
     const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+    const drawerWidth = 240;
 
     return (
         <CacheProvider value={emotionCache}>
@@ -21,7 +25,11 @@ export default function MyApp(props) {
             <ThemeProvider theme={theme}>
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline />
-                <Component {...pageProps} />
+                <Drawer width={drawerWidth} />
+                <Box sx={{ marginLeft: drawerWidth + 10 + 'px' }}>
+                    <Toolbar />
+                    <Component {...pageProps} />
+                </Box>
             </ThemeProvider>
         </CacheProvider>
     );
