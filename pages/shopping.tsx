@@ -1,16 +1,15 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Calendar from 'components/Calendar';
+import Link from 'next/link';
 
 const Shopping = (props) => {
     return (
         <Box>
-            <Box>
-                <h1>Shopping</h1>
-                <h3>You currently have no lists.</h3>
+            <h1>Shopping</h1>
+            <h3>You don't have any lists.</h3>
+            <Link href='/list/create'>
                 <Button variant='contained'>Create List</Button>
-                <Calendar />
-            </Box>
+            </Link>
         </Box>
     )
 }

@@ -43,7 +43,7 @@ export default function ClippedDrawer(props) {
                 <Box sx={{ overflow: 'auto' }}>
                     <List>
                         {(props.username ? loggedInList : notLoggedInList).map((el, index) => (
-                            <Link href={`/${el.label == 'Home' ? '/' : el.label.toLowerCase()}`}>
+                            <Link href={`${el.label == 'Home' ? '/' : el.label.toLowerCase()}`}>
                                 <ListItem button key={el.label}>
                                     <ListItemIcon>
                                         {el.icon}
