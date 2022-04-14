@@ -28,6 +28,8 @@ const Login = (props) => {
             response = await axios.post('/api/user/login', { username: username, password: password });
             if(response.status == 200) {
                 setMessage({ text: response.data.message, color: 'green' });
+                window.location = '/';
+
             }
             else {
                 setMessage({ text: response.data.message, color: 'red' });

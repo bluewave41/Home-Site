@@ -16,6 +16,7 @@ const clientSideEmotionCache = createEmotionCache();
 export default function MyApp(props) {
     const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
     const drawerWidth = 240;
+    const username = props.pageProps.username;
 
     return (
         <CacheProvider value={emotionCache}>
@@ -25,7 +26,7 @@ export default function MyApp(props) {
             <ThemeProvider theme={theme}>
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline />
-                <Drawer width={drawerWidth} />
+                <Drawer width={drawerWidth} username={username} />
                 <Box sx={{ marginLeft: drawerWidth + 10 + 'px' }}>
                     <Toolbar />
                     <Component {...pageProps} />
@@ -33,6 +34,24 @@ export default function MyApp(props) {
             </ThemeProvider>
         </CacheProvider>
     );
+}
+
+MyApp.getInitialProps = async (appContext) => {
+    const { ctx } = appContext;
+    let props = {}
+    if(ctx.req) {
+        const { getSession } = await import("lib/get-session");
+        const session = await getSession(ctx.req, ctx.res);
+        props.username = session.user?.username;
+    }
+    console.log('CALLED');
+
+    // calls page's `getInitialProps` and fills `appProps.pageProps`
+    //const appProps = await App.getInitialProps(appContext);
+
+    return {
+        pageProps: props
+    }
 }
 
 MyApp.propTypes = {
