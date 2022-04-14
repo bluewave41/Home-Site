@@ -9,6 +9,7 @@ import createEmotionCache from '../src/createEmotionCache';
 import Drawer from 'components/Drawer';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import { useState } from 'react';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -16,7 +17,7 @@ const clientSideEmotionCache = createEmotionCache();
 export default function MyApp(props) {
     const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
     const drawerWidth = 240;
-    const username = props.pageProps.username;
+    const [username, setUsername] = useState(props.pageProps.username);
 
     return (
         <CacheProvider value={emotionCache}>
