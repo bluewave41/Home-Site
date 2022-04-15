@@ -6,13 +6,19 @@ import { capitalize } from 'lib/Utilities';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
+<<<<<<< HEAD
 import { useRouter } from 'next/router';
+=======
+>>>>>>> c1211fd3ba1930588a3c508b07373c31b787e10b
 
 const CreateList = (props) => {
     const [items, setItems] = useState([]);
     const [currentItem, setCurrentItem] = useState('');
     const [currentAmount, setCurrentAmount] = useState(1);
+<<<<<<< HEAD
     const router = useRouter();
+=======
+>>>>>>> c1211fd3ba1930588a3c508b07373c31b787e10b
 
     const onChange = (e) => {
         switch(e.target.name) {
@@ -43,10 +49,13 @@ const CreateList = (props) => {
         let response;
         try {
             response = await axios.post('/api/list/create', { items: items });
+<<<<<<< HEAD
             if(response.status == 200) {
                 router.push('/shopping');
             }
             
+=======
+>>>>>>> c1211fd3ba1930588a3c508b07373c31b787e10b
         }
         catch(e) {
             console.log(e);
