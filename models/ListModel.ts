@@ -5,7 +5,7 @@ export default class ListModel extends Model {
     static idColumn = 'listId';
 
     listId!: number;
-    ownedId!: string;
+    ownerId!: string;
     uuid!: string;
     created_at!: string;
     updated_at!: string;

@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
     //create a new list
     const list = await ListModel.query().insert({
-        ownedId: session.user.userId,
+        ownerId: session.user.userId,
         uuid: uuidv4()
     });
 

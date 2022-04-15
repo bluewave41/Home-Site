@@ -15,7 +15,6 @@ const List = (props) => {
 }
 
 export async function getServerSideProps(context) {
-    const { req, res } = context;
     const slug = context.query.listId;
 
     const list = await ListModel.query().withGraphFetched('items')

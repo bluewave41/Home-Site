@@ -1,10 +1,9 @@
 import { getSession } from 'lib/get-session';
 import ListModel from 'models/ListModel';
-import { listItemSecondaryActionClasses } from '@mui/material';
 
 export default async function handler(req, res) {
     const session = await getSession(req, res);
-    const { uuid } = req.body.uuid;
+    const { uuid } = req.body;
 
     if(!session.user) {
         return res.status(401).json({ success: false, message: "You aren't logged in." });
@@ -16,10 +15,12 @@ export default async function handler(req, res) {
     const list = await ListModel.query().select('ownerId')
         .findOne('uuid', uuid);
 
-    if(list.ownedId != session.user.userId) {
+    if(list.ownerId != session.user.userId) {
         return res.status(403).json({ success: false, message: "That isn't your list. You can't delete it." });
     }
 
     await ListModel.query().delete()
         .where('uuid', uuid);
+
+    res.status(200).json({ success: true });
 }
