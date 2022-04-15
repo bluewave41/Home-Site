@@ -12,12 +12,25 @@ export default class ListModel extends Model {
 
     $beforeInsert() {
         this.created_at = new Date().toISOString();
+        this.updated_at = new Date().toISOString();
     }
 
     $beforeUpdate() {
         this.updated_at = new Date().toISOString();
     }
 
-}
+    static get relationMappings() {
+        const ShoppingItemModel = require('./ShoppingItemModel').default;
 
-//type UserShape = ModelObject<UserModel>;
+        return {
+            items: {
+                relation: Model.HasManyRelation,
+                modelClass: ShoppingItemModel,
+                join: {
+                    from: 'lists.listId',
+                    to: 'shopping_items.listId'
+                }
+            }
+        }
+    }
+}

@@ -6,11 +6,13 @@ import { capitalize } from 'lib/Utilities';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const CreateList = (props) => {
     const [items, setItems] = useState([]);
     const [currentItem, setCurrentItem] = useState('');
     const [currentAmount, setCurrentAmount] = useState(1);
+    const router = useRouter();
 
     const onChange = (e) => {
         switch(e.target.name) {
@@ -41,6 +43,10 @@ const CreateList = (props) => {
         let response;
         try {
             response = await axios.post('/api/list/create', { items: items });
+            if(response.status == 200) {
+                router.push('/shopping');
+            }
+            
         }
         catch(e) {
             console.log(e);
