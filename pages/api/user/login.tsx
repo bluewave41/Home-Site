@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         return res.status(401).json({ success: false, message: 'Username or password are incorrect.' });
     }
 
-    if(comparePassword(password, user.password)) {
+    if(await comparePassword(password, user.password)) {
         session.user = {
             userId: user.userId,
             username: user.username
