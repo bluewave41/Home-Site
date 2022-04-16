@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box';
 import startOfMonth from 'date-fns/startOfMonth';
-import endOfMonth from 'date-fns/endOfMonth';
 import startOfToday from 'date-fns/startOfToday';
 import { chunk } from 'lib/Utilities';
+import Link from 'next/link';
 
 const DateRow = (props) => {
     return (
@@ -22,34 +22,72 @@ const Row = (props) => {
     let days = props.dates;
     return (
         <Box sx={{ display: 'flex' }}>
-            <Square text={days[0]} />
-            <Square text={days[1]} />
-            <Square text={days[2]} />
-            <Square text={days[3]} />
-            <Square text={days[4]} />
-            <Square text={days[5]} />
-            <Square text={days[6]} />
+            {days.map((el, index) => (
+                el.text ? <LinkSquare key={el.link} text={el.text} link={el.link} menu={el.menu} /> : <Square key={index} />
+            ))}
         </Box>
     )
 }
 
 const Square = (props) => {
     let height = props.small ? '40px' : '100px';
+
     return (
-        <Box sx={{ display: 'flex', width: '100px', height: height, border: 1, justifyContent: 'center' }}>
+        <Box sx={{ 
+            display: 'flex',
+            width: '100px',
+            height: height,
+            border: 1,
+            justifyContent: 'center',
+        }}>
             {props.text}
         </Box>
     )
 }
 
+const LinkSquare = (props) => {
+    let height = props.small ? '40px' : '100px';
+    let hover = props.text ? {
+        border: '1px solid aqua',
+        cursor: 'pointer'
+    } : {}
+
+    return (
+        <Link href={props.link}>
+            <Box sx={{ 
+                display: 'flex',
+                width: '100px',
+                height: height,
+                border: 1,
+                justifyContent: 'center',
+                ':hover': hover
+            }}>
+                <Box>
+                    <Box>
+                        {props.text}
+                    </Box>
+                    <Box>
+                        {props.menu}
+                    </Box>
+                </Box>
+            </Box>
+        </Link>
+    )
+}
+
 const Calendar = (props) => {
-    const today = startOfMonth(startOfToday()).getDay();
-    const end = endOfMonth(startOfToday()).getDay();
-    console.log(end);
+    const menus = props.menus;
+    const beginningOfMonth = startOfMonth(startOfToday());
+    const day = beginningOfMonth.getDay();
     let days = new Array(35).fill('');
-    let day = 1;
-    for(var x=today;x<35;x++) {
-        days[x] = day++;
+    let dayIndex = 1;
+    for(var x=day;x<35;x++) {
+        let menu = menus.find(el => new Date(el.date).getDate() == dayIndex); //I think the JSON stringify and parse is messing with the date here?
+        days[x] = {
+            link: '/menu/' + dayIndex + '/' + beginningOfMonth.getMonth() + '/' + beginningOfMonth.getFullYear(),
+            text: dayIndex++,
+            menu: menu ? menu.name : ''
+        }
     }
     days = chunk(days, 7);
     return (
