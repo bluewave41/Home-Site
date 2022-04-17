@@ -12,7 +12,7 @@ export default async function handler(req, res) {
         return res.status(401).json({ success: false, message: "Missing date parameter." });
     }
 
-    const date = validateDate(req.body.data);
+    const date = validateDate(req.body.date);
     if(!date) {
         return res.status(401).json({ success: false, message: "Date parameter is invalid." });
     }

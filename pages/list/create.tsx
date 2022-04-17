@@ -39,6 +39,10 @@ const CreateList = (props) => {
         }
     }
 
+    const onDelete = (name) => {
+        setItems(items.filter(el => el.name != name));
+    }
+
     const onSave = async (e) => {
         let response;
         try {
@@ -63,7 +67,7 @@ const CreateList = (props) => {
                         <Button sx={{ backgroundColor: 'blue' }}>
                             <EditIcon sx={{ color: 'white' }} />
                         </Button>
-                        <Button sx={{ backgroundColor: 'red' }}>
+                        <Button sx={{ backgroundColor: 'red' }} onClick={() => onDelete(el.name)}>
                             <DeleteIcon sx={{ color: 'white' }} />
                         </Button>
                     </Box>
