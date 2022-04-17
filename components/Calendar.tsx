@@ -84,7 +84,7 @@ const Calendar = (props) => {
     for(var x=day;x<35;x++) {
         let menu = menus.find(el => new Date(el.date).getDate() == dayIndex); //I think the JSON stringify and parse is messing with the date here?
         days[x] = {
-            link: '/menu/' + dayIndex + '/' + beginningOfMonth.getMonth() + '/' + beginningOfMonth.getFullYear(),
+            link: '/menu/' + dayIndex + '/' + (beginningOfMonth.getMonth()+1) + '/' + beginningOfMonth.getFullYear(),
             text: dayIndex++,
             menu: menu ? menu.name : ''
         }

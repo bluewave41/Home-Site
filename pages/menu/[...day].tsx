@@ -20,7 +20,8 @@ const ModifyMeal = (props) => {
 
     const onSubmit = async (e) => {
         let response;
-        const url = props.name ? '/api/menu/update' : '/api/menu/create';
+        console.log(name == '')
+        const url = !name ? '/api/menu/delete' : props.name ? '/api/menu/update' : '/api/menu/create';
         try {
             response = await axios.post(url, { name: name, date: dateString });
             router.back();

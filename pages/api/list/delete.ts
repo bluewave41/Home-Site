@@ -1,14 +1,15 @@
 import { getSession } from 'lib/get-session';
 import ListModel from 'models/ListModel';
+import { validateField } from 'lib/Validator';
 
 export default async function handler(req, res) {
     const session = await getSession(req, res);
     const { uuid } = req.body;
 
-    if(!session.user) {
+    if(!validateField(session.user)) {
         return res.status(401).json({ success: false, message: "You aren't logged in." });
     }
-    if(!uuid) {
+    if(!validateField(uuid)) {
         return res.status(401).json({ success: false, message: "Missing uuid parameter." });
     }
 

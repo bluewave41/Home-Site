@@ -1,22 +1,22 @@
 import { getSession } from 'lib/get-session';
 import MenuModel from 'models/MenuModel';
-import isValid from 'date-fns/isValid';
+import { validateField, validateDate } from 'lib/Validator';
 
 export default async function handler(req, res) {
     const session = await getSession(req, res);
 
-    if(!session.user) {
+    if(!validateField(session.user)) {
         return res.status(401).json({ success: false, message: "You aren't logged in." });
     }
-    if(!req.body.date) {
+    if(!validateField(req.body.date)) {
         return res.status(401).json({ success: false, message: "Missing date parameter." });
     }
-    if(!req.body.name) {
+    if(!validateField(req.body.name)) {
         return res.status(401).json({ success: false, message: "Missing name parameter." });
     }
 
-    const date = new Date(req.body.date);
-    if(!isValid(date)) {
+    const date = validateDate(req.body.date);
+    if(date) {
         return res.status(401).json({ success: false, message: "Date parameter is invalid." });
     }
 
