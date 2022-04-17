@@ -1,6 +1,7 @@
 import { getSession } from 'lib/get-session';
 import MenuModel from 'models/MenuModel';
 import { validateField, validateDate } from 'lib/Validator';
+import { dateToString } from 'lib/DateHandler';
 
 export default async function handler(req, res) {
     const session = await getSession(req, res);
@@ -16,13 +17,13 @@ export default async function handler(req, res) {
     }
 
     const date = validateDate(req.body.date);
-    if(date) {
+    if(!date) {
         return res.status(401).json({ success: false, message: "Date parameter is invalid." });
     }
 
     const record = await MenuModel.query().select()
         .findOne('userId', session.user.userId)
-        .findOne('date', date);
+        .findOne('date', dateToString(date));
 
     if(!record) {
         return res.status(401).json({ success: false, message: "No record exists for that date" });
