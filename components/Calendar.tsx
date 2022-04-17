@@ -1,6 +1,4 @@
 import Box from '@mui/material/Box';
-import startOfMonth from 'date-fns/startOfMonth';
-import startOfToday from 'date-fns/startOfToday';
 import { chunk } from 'lib/Utilities';
 import Link from 'next/link';
 
@@ -76,15 +74,15 @@ const LinkSquare = (props) => {
 }
 
 const Calendar = (props) => {
+    const date = props.date;
     const menus = props.menus;
-    const beginningOfMonth = startOfMonth(startOfToday());
-    const day = beginningOfMonth.getDay();
+    const day = date.getDay();
     let days = new Array(35).fill('');
     let dayIndex = 1;
     for(var x=day;x<35;x++) {
         let menu = menus.find(el => new Date(el.date).getDate() == dayIndex); //I think the JSON stringify and parse is messing with the date here?
         days[x] = {
-            link: '/menu/' + dayIndex + '/' + (beginningOfMonth.getMonth()+1) + '/' + beginningOfMonth.getFullYear(),
+            link: '/menu/' + dayIndex + '/' + (date.getMonth()+1) + '/' + date.getFullYear(),
             text: dayIndex++,
             menu: menu ? menu.name : ''
         }
