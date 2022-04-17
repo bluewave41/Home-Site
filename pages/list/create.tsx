@@ -61,7 +61,7 @@ const CreateList = (props) => {
         <Box>
             <h1>Create a new list</h1>
             {items.map(el => (
-                <Box sx={{ display: 'flex', width: '30%', justifyContent: 'space-between', mb: '10px' }}>
+                <Box key={el.name} sx={{ display: 'flex', width: '30%', justifyContent: 'space-between', mb: '10px' }}>
                     {el.name}
                     <Box>
                         <Button sx={{ backgroundColor: 'blue' }}>

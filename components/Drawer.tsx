@@ -18,7 +18,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Link from 'next/link';
 
 export default function ClippedDrawer(props) {
-    console.log('PROPS', props);
     const loggedInList = [{ label: 'Home', icon: <HomeIcon /> }, { label: 'Shopping', icon: <ShoppingCartIcon /> }, { label: 'Menu', icon: <MenuBookIcon /> }, { label: 'Logout', icon: <LogoutIcon /> }];
     const notLoggedInList = [{ label: 'Login' , icon: <LoginIcon /> }, { label: 'Register', icon: <AppRegistrationIcon /> }];
     return (
@@ -43,7 +42,7 @@ export default function ClippedDrawer(props) {
                 <Box sx={{ overflow: 'auto' }}>
                     <List>
                         {(props.username ? loggedInList : notLoggedInList).map((el, index) => (
-                            <Link href={`${el.label == 'Home' ? '/' : '/' + el.label.toLowerCase()}`}>
+                            <Link key={el.label} href={`${el.label == 'Home' ? '/' : '/' + el.label.toLowerCase()}`} passHref>
                                 <ListItem button key={el.label}>
                                     <ListItemIcon>
                                         {el.icon}

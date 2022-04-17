@@ -51,7 +51,7 @@ const LinkSquare = (props) => {
     } : {}
 
     return (
-        <Link href={props.link}>
+        <Link href={props.link} passHref>
             <Box sx={{ 
                 display: 'flex',
                 width: '100px',
@@ -91,8 +91,8 @@ const Calendar = (props) => {
     return (
         <Box>
             <DateRow />
-            {days.map(el => (
-                <Row dates={el} />
+            {days.map((el, index) => (
+                <Row key={index} dates={el} />
             ))}
         </Box>
     )

@@ -25,15 +25,15 @@ const Shopping = (props) => {
         <Box>
             <h1>Shopping</h1>
             {lists.map(el => (
-                <Box>
-                    <Link href={`/list/${el.uuid}`}>
+                <Box key={el.uuid}>
+                    <Link href={`/list/${el.uuid}`} passHref>
                         {format(new Date(el.created_at), 'MMMM dd y p')}
                     </Link>
                     <Button onClick={() => onDelete(el.uuid)}><DeleteIcon /></Button>
                 </Box>
             ))}
-            <h3>You don't have any lists.</h3>
-            <Link href='/list/create'>
+            <h3>You don&apos;t have any lists.</h3>
+            <Link href='/list/create' passHref>
                 <Button variant='contained'>Create List</Button>
             </Link>
         </Box>

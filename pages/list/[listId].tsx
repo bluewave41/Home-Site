@@ -6,7 +6,7 @@ const List = (props) => {
         <Box>
             <h1>Your list</h1>
             {props.items.map(el => (
-                <Box>  
+                <Box key={el.name}>  
                     {el.amount} {el.name}
                 </Box>
             ))}

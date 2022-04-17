@@ -16,7 +16,7 @@ export default function Home(props) {
                 <main className={styles.main}>
                     <h1>At a glance view</h1>
                     {props.menu 
-                        ? <h3>Tonight you're cooking: {props.menu}.</h3>
+                        ? <h3>Tonight you&apos;re cooking: {props.menu}.</h3>
                         : <h3>You have no meal set for today.</h3>
                     }
                     
